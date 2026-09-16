@@ -21,9 +21,9 @@ Every run, the workflow:
 
 ## The design decision worth noting
 
-The pipeline uses two AI models on purpose, not one. A cheaper, faster model does the first-pass scoring across every scraped role, which is high volume and does not need deep reasoning. Only roles that clear the 60% threshold are handed to a more capable, more expensive model for the assessment and cover-letter writing, which is where quality actually matters.
+The pipeline uses two AI models on. A cheaper, faster model does the first-pass scoring across every scraped role, which is high volume and does not need deep reasoning. Only roles that clear the 60% threshold are handed to a more capable, more expensive model for the assessment and cover-letter writing, which is where quality actually matters.
 
-That split is the point. It is a deliberate cost-and-quality tradeoff: spend the cheap model's time on triage where volume is high and stakes are low, and reserve the expensive model for the small number of roles where the output has to be good. The 60% gate is the control that makes it work, and it also prevents duplicated effort because nothing already seen gets processed twice.
+The split is a deliberate cost-and-quality tradeoff: spend the cheap model's time on triage where volume is high and stakes are low, and reserve the expensive model for the small number of roles where the output has to be good. The 60% gate is the control, it also prevents duplicated effort as nothing already seen gets processed twice.
 
 ## Built with
 
@@ -43,4 +43,4 @@ The workflow file in this repo (`Application_Automation.sanitised.json`) is a sa
 
 ## A note on scope
 
-This was built to solve a real problem I had at a specific moment, and it did. It is shared here as a worked example of how I approach delivery: find the repetitive, error-prone part of a process, design a system that removes it, and build in the controls that keep the output trustworthy. The workflow is fully functional and could run again with fresh credentials, though I am not running it live.
+This was built to solve a real problem I had at a specific moment. It is shared here as a worked example of how I approach delivery: find the repetitive, error-prone part of a process, design a system that removes it, and build in the controls that keep the output trustworthy. The workflow is fully functional and could run again with fresh credentials, though I am not running it live.
