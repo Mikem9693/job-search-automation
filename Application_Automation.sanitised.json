@@ -1,0 +1,1404 @@
+{
+  "name": "Application Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 6
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -752,
+        16
+      ],
+      "id": "39c8bf54-4e81-4bc8-8609-e5fe375a9be5",
+      "name": "Schedule Trigger",
+      "notesInFlow": false,
+      "retryOnFail": true,
+      "maxTries": 5,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1d527521-12bc-4c1f-9a3b-294871d550c3",
+              "name": "name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "3c551ff7-d5e3-4a47-b8c4-1b723675edd7",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "81416b8a-98d8-4a23-9597-0bf16029d5a4",
+              "name": "applyUrl",
+              "value": "={{ $json.applyUrl }}",
+              "type": "string"
+            },
+            {
+              "id": "500eb6d9-3f44-494a-982b-91a90ae03203",
+              "name": "experienceLevel",
+              "value": "={{ $json.experienceLevel }}",
+              "type": "string"
+            },
+            {
+              "id": "43946897-9746-4c16-b5e4-3645ea19fd5f",
+              "name": "educationLevel",
+              "value": "={{ $json.educationLevel }}",
+              "type": "string"
+            },
+            {
+              "id": "cabca7d3-49d2-49e1-8ba5-ce8b16008946",
+              "name": "description",
+              "value": "={{ $json.description }}",
+              "type": "string"
+            },
+            {
+              "id": "fd533001-92ab-46e5-be0e-4ea894622d92",
+              "name": "summary",
+              "value": "={{ $json.summary }}",
+              "type": "string"
+            },
+            {
+              "id": "7951a5f2-c556-4c7f-bc1b-0ee29d857508",
+              "name": "keyMissions",
+              "value": "={{ $json.keyMissions }}",
+              "type": "array"
+            },
+            {
+              "id": "51914169-78f8-4445-8eda-cfc7dd49d09d",
+              "name": "organizationName",
+              "value": "={{ $json.organizationName }}",
+              "type": "string"
+            },
+            {
+              "id": "d03c99ca-4a8d-41e9-9894-9c7b1d9043e4",
+              "name": "publishedAt",
+              "value": "={{ $json.publishedAt }}",
+              "type": "string"
+            },
+            {
+              "id": "8d181a90-a367-4f63-9800-e76e3be59c00",
+              "name": "offices",
+              "value": "={{ $json.offices }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        608,
+        16
+      ],
+      "id": "35931a5e-3f6e-4e02-83ad-899cf8a4a06a",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const content = $input.item.json.content[0].text;\nconst clean = content.replace(/```json\\n?|\\n?```/g, '').trim();\nconst parsed = JSON.parse(clean);\nreturn { json: parsed };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1424,
+        16
+      ],
+      "id": "706cd3aa-fdb7-4926-9573-9f3af61bc8fe",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "jsCode": "const content = $input.item.json.content[0].text;\nconst clean = content.replace(/```json\\n?|\\n?```/g, '').trim();\nconst parsed = JSON.parse(clean);\nreturn { json: parsed };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2576,
+        -80
+      ],
+      "id": "c033e2a8-1c9f-43bd-b41d-5b7e1dd74ef0",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const content = $input.item.json.content[0].text;\nconst clean = content.replace(/```json\\n?|\\n?```/g, '').trim();\nconst parsed = JSON.parse(clean);\nreturn { json: parsed };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3232,
+        -80
+      ],
+      "id": "76f5a538-1a86-4186-98e5-59d753beeb46",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "compare": "selectedFields",
+        "fieldsToCompare": "id",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 2,
+      "position": [
+        800,
+        16
+      ],
+      "id": "1d6cd781-9a38-4e15-8e5c-477119847d94",
+      "name": "Remove Duplicates"
+    },
+    {
+      "parameters": {
+        "numberInputs": 8
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        432,
+        0
+      ],
+      "id": "6911b999-f8cb-401e-9853-4329d72f0432",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "operation": "Run actor and get dataset",
+        "actorId": {
+          "__rl": true,
+          "value": "MdJIadsWKRaguareT",
+          "mode": "id"
+        },
+        "customBody": "{\n    \"contractType\": [\n        \"full_time\"\n    ],\n    \"countryCode\": \"GB\",\n    \"includeDetails\": true,\n    \"language\": \"en\",\n    \"maxItems\": 0,\n    \"query\": \"\\\"Chief of Staff\\\"\",\n    \"searchOnlyInJobTitle\": false\n}",
+        "timeout": "={{ 0 }}",
+        "memory": 256
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        -128
+      ],
+      "id": "96104ac3-1de6-4161-89ac-e5172777e87e",
+      "name": "Chief Of Staff",
+      "notesInFlow": false,
+      "credentials": {
+        "apifyApi": {
+          "id": "REPLACE_ME",
+          "name": "Your apifyApi credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "Run actor and get dataset",
+        "actorId": {
+          "__rl": true,
+          "value": "MdJIadsWKRaguareT",
+          "mode": "id"
+        },
+        "customBody": "{\n    \"contractType\": [\n        \"full_time\"\n    ],\n    \"countryCode\": \"GB\",\n    \"includeDetails\": true,\n    \"language\": \"en\",\n    \"maxItems\": 0,\n    \"query\": \"\\\"Project Manager\\\"\",\n    \"searchOnlyInJobTitle\": false\n}",
+        "timeout": "={{ 0 }}",
+        "memory": 256
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        32
+      ],
+      "id": "877f173f-5da0-47c6-9290-26b4891284e4",
+      "name": "Project Manager",
+      "notesInFlow": false,
+      "credentials": {
+        "apifyApi": {
+          "id": "REPLACE_ME",
+          "name": "Your apifyApi credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "Run actor and get dataset",
+        "actorId": {
+          "__rl": true,
+          "value": "MdJIadsWKRaguareT",
+          "mode": "id"
+        },
+        "customBody": "{\n    \"contractType\": [\n        \"full_time\"\n    ],\n    \"countryCode\": \"GB\",\n    \"includeDetails\": true,\n    \"language\": \"en\",\n    \"maxItems\": 0,\n    \"query\": \"\\\"Operations Manager\\\"\",\n    \"searchOnlyInJobTitle\": false\n}",
+        "timeout": "={{ 0 }}",
+        "memory": 256
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        176
+      ],
+      "id": "cdcdc149-0c84-43da-8262-18844f9101c5",
+      "name": "Operations Manager",
+      "notesInFlow": false,
+      "credentials": {
+        "apifyApi": {
+          "id": "REPLACE_ME",
+          "name": "Your apifyApi credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "claude-haiku-4-5-20251001",
+          "mode": "list",
+          "cachedResultName": "claude-haiku-4-5-20251001"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Please assess the following job description against Mike's profile and scoring criteria:\n\n{{ $json.name }}\n{{ $json.organizationName }}\n{{ $json.offices[0].country_code }}\n{{ $json.description }}"
+            }
+          ]
+        },
+        "options": {
+          "system": "You are a career advisor supporting a senior operations and programme  management professional named YOUR_NAME.  PROFILE: - Current role: De facto Chief of Staff at Vantage Data Centres    (Feb 2024-present), global 1,000+ employee organisation spanning    EMEA, APAC, North America - Previous: Head of PMO at QuantSpark, Lloyds Banking Group    (portfolio of 35 projects across 7 departments), UK Government    roles across Home Office, Maritime and Coastguard Agency, DHSC - Target roles: Chief of Staff, Head of Operations, PMO Director,    Process Improvement Lead, Senior Programme Manager - Target salary: YOUR_TARGET_SALARY_RANGE - Location: YOUR_CITY. Open to relocation including    Brussels, Paris, Toronto, UAE - Qualifications: PRINCE2 Practitioner, BA History 2:1 Sheffield Hallam - Technical skills: Power BI, Excel, Data Lake architecture, Asana,    Jira, Microsoft Project  SCORING CRITERIA: - Score above 60% only if the role is a credible application - Deduct significantly for: hard language barriers, US/Canadian work    authorisation requirements, mandatory MBA, roles below    Senior/Manager level, technical specialist roles outside his    background - Consider as strengths: government experience, SC clearance    eligibility, NHS Trust delivery, Power BI, PRINCE2, C-suite    stakeholder management  \n\nSUMMARY GUIDELINES:\nWrite a concise narrative summary of the role and its fit for Mike \nin a direct, conversational tone. The summary should:\n\n- Open with a genuine observation about the organisation or role \n  context \u2014 what makes it interesting or worth noting\n- Flag location immediately if it falls outside London or requires \n  relocation\n- Walk through the strongest fit elements naturally, referencing \n  specific role requirements that map to Mike's background\n- State the honest gaps directly without softening them\n- Note any standout benefits, working arrangements or mission \n  context if genuinely relevant\n- Close with a clear CV recommendation and which specific elements \n  to foreground\n\nWrite in second person (\"you\", \"your\") as if briefing Mike directly.\nDo not use bullet points. Two to four paragraphs maximum.\nDo not repeat information already captured in key_gaps or \nkey_strengths \u2014 this should read as a holistic narrative, \nnot a reformatting of the structured fields.\n\n\nOUTPUT FORMAT:\nReturn only raw JSON with no markdown formatting, \nno code fences, no backticks, no preamble.\n\n{\n   \"suitability\": [number 0-100],\n  \"decision\": \"Apply\" or \"Skip\",\n  \"key_gaps\": [\"gap 1\", \"gap 2\", \"gap 3\"],\n  \"key_strengths\": [\"strength 1\", \"strength 2\", \"strength 3\"],\n  \"summary\": \"[narrative paragraph]\"\n\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.anthropic",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        16
+      ],
+      "id": "f0590a99-02aa-461e-a607-44bed2596ce3",
+      "name": "Claude Scoring",
+      "retryOnFail": false,
+      "credentials": {
+        "anthropicApi": {
+          "id": "REPLACE_ME",
+          "name": "Your anthropicApi credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "claude-haiku-4-5-20251001",
+          "mode": "list",
+          "cachedResultName": "claude-haiku-4-5-20251001"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Based on the following suitability assessment, recommend which CV \nvariant Mike should use:\n\nSuitability: {{ $json.suitability }}%\nDecision: {{ $json.decision }}\nKey Gaps: {{ $json.key_gaps }}\nKey Strengths: {{ $json.key_strengths }}\nJob Title: {{ $json.name }}"
+            }
+          ]
+        },
+        "options": {
+          "system": "You are a career advisor supporting YOUR_NAME, a senior operations  and programme management professional.  Your task is to recommend the most appropriate CV variant based on  a suitability assessment already completed for a specific role.  CV VARIANTS AVAILABLE: - CoS CV: Leads with strategic partnership, operating cadence    design, C-suite advisory, governance frameworks. Best for:    Chief of Staff, Head of Operations, strategic operations roles - PMO CV: Leads with programme delivery, PRINCE2, portfolio    governance, risk management, delivery frameworks. Best for:    PMO Director, Programme Manager, Delivery Manager, Project    Manager roles - Data CV: Leads with Power BI, Data Lake architecture, analytics,    dashboard development, data-driven decision making. Best for:    roles with significant analytical, reporting or data emphasis - Process Improvement CV: Leads with operational transformation,    automation, continuous improvement, efficiency gains. Best for:    Head of Operations, BizOps, operational excellence roles  Return only raw JSON with no markdown, no code fences, no backticks: {   \"cv_variant\": \"[CV name]\",   \"reason\": \"[One sentence maximum]\" }\n\nIn the summary field, do not use apostrophes, quotes or any \nspecial characters. Use plain text only."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.anthropic",
+      "typeVersion": 1,
+      "position": [
+        2144,
+        -80
+      ],
+      "id": "f4594fce-37df-4fb7-918c-37e0bd08bde6",
+      "name": "Claude CV Reccomendation",
+      "credentials": {
+        "anthropicApi": {
+          "id": "REPLACE_ME",
+          "name": "Your anthropicApi credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "d3c6e28e-bcbb-4d1c-b7c5-198a195efc35",
+              "leftValue": "={{ $json.suitability }}",
+              "rightValue": 60,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1728,
+        16
+      ],
+      "id": "da2f51f1-6ff6-4815-9b37-22fcda89f43a",
+      "name": "60% Threshold "
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "claude-sonnet-4-6",
+          "mode": "list",
+          "cachedResultName": "claude-sonnet-4-6"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Provide a detailed assessment and cover letter brief for the \nfollowing role:\n\nJob Title: {{ $('Edit Fields').item.json.name }}\nCompany: {{ $('Edit Fields').item.json.organizationName }}\nSalary: {{ $('Edit Fields').item.json.salaryMin }}\nLocation: {{ $('Edit Fields').item.json.offices[0].district }}\nSuitability Score: {{ $json.suitability }}\nKey Gaps: {{ $json.key_gaps }}\nKey Strengths: {{ $json.key_strengths }}\nCV Variant Recommended: {{ $json.cv_variant }}\n\nJob Description:\n{{ $('Edit Fields').item.json.description }}"
+            }
+          ]
+        },
+        "options": {
+          "system": "You are a career advisor supporting YOUR_NAME, a senior operations  and programme management professional.  Your task is to provide a detailed assessment and cover letter brief  based on a suitability assessment already completed.  ACHIEVEMENTS TO REFERENCE (use only what is relevant): - LAMP Programme: 6 NHS Trust sites, 30 hospitals, ahead of    schedule and under budget - Vantage RAID tracking: 80 projects, 80-160 hours/week saving - Vantage agile transformation: 300% to 85% utilisation,    8 developers, 4 sprints - Vantage DPI Hub: 145% to 90% utilisation, 3 weeks, 4 projects    Red to Green - Vantage CFIUS rescue: $150,000 saved, Red to Green in 2 weeks - QuantSpark RAID training: 65% reduction in CEO intervention - QuantSpark risk framework: 20% reduction in escalations - LBG roadmap: 6 clashes resolved, 3 delays avoided - Stop-Gap: 90% workload reduction, return to profitability after    16 quarters of loss - SC clearance eligibility from government background - NHS Trust delivery, regulated sector experience  SALARY THRESHOLD: Flag any role below \u00a3YOUR_MIN_SALARY or with a location  that creates a practical barrier for someone based in YOUR_CITY, open to Brussels, Paris, Toronto, UAE.  Return only raw JSON with no markdown, no code fences, no backticks: {   \"role_summary\": \"[one paragraph]\",   \"honest_gaps\": [\"gap 1\", \"gap 2\", \"gap 3\"],   \"key_differentiators\": [\"differentiator 1\", \"differentiator 2\", \"differentiator 3\"],   \"cover_letter_focus\": [\"achievement 1\", \"achievement 2\", \"achievement 3\"],   \"salary_flag\": \"[flag or null]\" }"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.anthropic",
+      "typeVersion": 1,
+      "position": [
+        2800,
+        -80
+      ],
+      "id": "efa1aa8a-02bb-4600-a599-3d23c87947ea",
+      "name": "Claude Assesment",
+      "credentials": {
+        "anthropicApi": {
+          "id": "REPLACE_ME",
+          "name": "Your anthropicApi credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "claude-sonnet-4-6",
+          "mode": "list",
+          "cachedResultName": "claude-sonnet-4-6"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Write a cover letter for the following role:\n\nJob Title: {{ $('Edit Fields').item.json.name }}\nCompany: {{ $('Edit Fields').item.json.organizationName }}\nCV Variant: {{ $json.cv_variant }}\n\nRole Summary: {{ $json.role_summary }}\nCover Letter Focus: {{ $json.cover_letter_focus }}\nHonest Gaps: {{ $json.honest_gaps }}\nKey Differentiators: {{ $json.key_differentiators }}\n\nJob Description:\n{{ $('Edit Fields').item.json.description }}"
+            }
+          ]
+        },
+        "options": {
+          "system": "=You are a professional cover letter writer supporting YOUR_NAME, \na senior operations and programme management professional.\n\nPERSONAL DETAILS:\nYOUR_NAME\nYOUR_CITY, POSTCODE\nYOUR_PHONE\nYOUR_EMAIL@example.com\n\nWRITING GUIDELINES:\n- UK English throughout\n- No em dashes\n- No bullet points in the letter itself\n- Avoid generic opening lines - lead immediately with the most \n  distinctive differentiator for this specific role\n- One side of A4 maximum (approximately 400-500 words in the body)\n- Formal but confident tone - avoid phrases like \"I am delighted\" \n  or \"I am excited to apply\"\n- Never claim consulting or investment banking experience Mike \n  does not have\n- Never overclaim on gaps identified in the suitability assessment\n- Where gaps exist acknowledge them briefly and redirect to \n  transferable strength\n- Close with a simple, clean sign-off - do not summarise the letter \n  in the final paragraph\n\nCOVER LETTER STRUCTURE:\nParagraph 1: The most compelling differentiator for this specific \nrole - why Mike specifically, not why anyone would want the job\nParagraph 2: Most relevant career evidence with specific metrics\nParagraph 3: Second most relevant career evidence with specific \nmetrics\nParagraph 4 (optional): Address the most significant gap honestly \nand briefly if it warrants acknowledgement\nFinal paragraph: Clean close and CV reference\n\nACHIEVEMENTS TO DRAW FROM (select only what is relevant):\n- LAMP Programme: 6 NHS Trust sites, 30 hospitals, ahead of \n  schedule and under budget\n- Vantage RAID tracking: 80 projects, 80-160 hours/week saving\n- Vantage agile transformation: 300% to 85% utilisation, \n  8 developers, 4 sprints\n- Vantage DPI Hub: 145% to 90% utilisation, 3 weeks, 4 projects \n  Red to Green\n- Vantage CFIUS rescue: $150,000 saved, Red to Green in 2 weeks\n- QuantSpark RAID training: 65% reduction in CEO intervention\n- QuantSpark risk framework: 20% reduction in escalations\n- LBG roadmap: 6 clashes resolved, 3 delays avoided\n- Stop-Gap: 90% workload reduction, return to profitability after \n  16 quarters of loss\n- SC clearance eligibility from government background\n\nFORMATTING:\n- Include date: {{ $now.toFormat('dd MMMM yyyy') }}\n- Include company name and role title as header in bold\n- Sign off: Yours sincerely, YOUR_NAME\n- End with: Please find my CV attached\n\nReturn the cover letter as plain text only. No JSON, no markdown, \nno code fences.\n\nDo not use any markdown formatting. No asterisks, no bold, \nno italics. Plain text only.\n\nEnd with: Please find my CV attached"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.anthropic",
+      "typeVersion": 1,
+      "position": [
+        3456,
+        -80
+      ],
+      "id": "cf3764e4-1a91-4779-af4f-7bc207110802",
+      "name": "Claude Cover Letter",
+      "credentials": {
+        "anthropicApi": {
+          "id": "REPLACE_ME",
+          "name": "Your anthropicApi credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentURL": "={{ $json.id }}",
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "text": "={{ $('Claude Cover Letter').item.json.content[0].text }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        4112,
+        -80
+      ],
+      "id": "176262d9-4efb-4731-8e69-886983808304",
+      "name": "Populates Cover Letter",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "REPLACE_ME",
+          "name": "Your googleDocsOAuth2Api credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "folderId": "YOUR_GOOGLE_DOC_TEMPLATE_ID",
+        "title": "={{ $('Edit Fields').item.json.id }}{{ $('Edit Fields').item.json.organizationName }}-{{ $('Edit Fields').item.json.name }}-Cover Letter-{{ $now.toFormat('dd-MM-yyyy') }}"
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        3856,
+        -80
+      ],
+      "id": "312500a4-17d9-4a2f-a26e-d02a0ebf980a",
+      "name": "Creates Cover Letter",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "REPLACE_ME",
+          "name": "Your googleDocsOAuth2Api credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID/edit?gid=851448949#gid=851448949",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Applications",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "UID": "={{ $('Edit Fields').item.json.id }}",
+            "Job Title": "={{ $('Edit Fields').item.json.name }}",
+            "Company": "={{ $('Edit Fields').item.json.organizationName }}",
+            "Location": "={{ $('Edit Fields').item.json.offices[0].city }}",
+            "Postcode": "={{ $('Edit Fields').item.json.offices[0].zip_code }}",
+            "Apply URL": "={{ $('Edit Fields').item.json.applyUrl }}",
+            "Cover Letter": "=https://docs.google.com/document/d/{{ $('Creates Cover Letter').item.json.id }}/edit\n",
+            "Claude Outline": "={{ $('Code in JavaScript1').item.json.reason }}",
+            "Claude Score": "={{ $('Code in JavaScript').item.json.suitability }}",
+            "Advised CV": "={{ $('Code in JavaScript1').item.json.cv_variant }}",
+            "Identitification Date": "={{ $now.toFormat('dd-MM-yyyy') }}",
+            "Summary": "={{ $('Code in JavaScript').item.json.summary }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Identitification Date",
+              "displayName": "Identitification Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "UID",
+              "displayName": "UID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Job Title",
+              "displayName": "Job Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Claude Score",
+              "displayName": "Claude Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Advised CV",
+              "displayName": "Advised CV",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Location",
+              "displayName": "Location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Postcode",
+              "displayName": "Postcode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Apply URL",
+              "displayName": "Apply URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Application Date",
+              "displayName": "Application Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Cover Letter",
+              "displayName": "Cover Letter",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Claude Outline",
+              "displayName": "Claude Outline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Summary",
+              "displayName": "Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        4400,
+        -80
+      ],
+      "id": "5b25abd2-f7f1-4d84-810a-b4670e05d4ca",
+      "name": "Add to Application Sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "REPLACE_ME",
+          "name": "Your googleSheetsOAuth2Api credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID/edit?gid=376564831#gid=376564831",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 376564831,
+          "mode": "list",
+          "cachedResultName": "Processed",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID/edit#gid=376564831"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "UID": "={{ $json.UID }}",
+            "Identitification Date": "={{ $json['Identitification Date'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Identitification Date",
+              "displayName": "Identitification Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "UID",
+              "displayName": "UID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        4624,
+        -80
+      ],
+      "id": "07d2d2c0-5577-4620-9e52-11d975360286",
+      "name": "Add to Processed Sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "REPLACE_ME",
+          "name": "Your googleSheetsOAuth2Api credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID/edit?gid=851448949#gid=851448949",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Rejections",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Apply URL": "={{ $('Edit Fields').item.json.applyUrl }}",
+            "Postcode": "={{ $('Edit Fields').item.json.offices[0].zip_code }}",
+            "Location": "={{ $('Edit Fields').item.json.offices[0].district }}",
+            "Suitability": "={{ $json.suitability }}",
+            "Job Title": "={{ $('Edit Fields').item.json.name }}",
+            "UID": "={{ $('Edit Fields').item.json.id }}",
+            "Company": "={{ $('Edit Fields').item.json.organizationName }}",
+            "Identitification Date": "={{ $now.toFormat('dd-MM-yyyy') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Identitification Date",
+              "displayName": "Identitification Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "UID",
+              "displayName": "UID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Job Title",
+              "displayName": "Job Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Suitability",
+              "displayName": "Suitability",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Advised CV",
+              "displayName": "Advised CV",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Location",
+              "displayName": "Location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Postcode",
+              "displayName": "Postcode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Apply URL",
+              "displayName": "Apply URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Reviewed",
+              "displayName": "Reviewed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Cover Letter",
+              "displayName": "Cover Letter",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Claude Outline",
+              "displayName": "Claude Outline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2240,
+        160
+      ],
+      "id": "16b72391-28b7-426f-9b47-6da2a4ff588d",
+      "name": "Add to Rejections",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "REPLACE_ME",
+          "name": "Your googleSheetsOAuth2Api credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID/edit?gid=376564831#gid=376564831",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 376564831,
+          "mode": "list",
+          "cachedResultName": "Processed",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID/edit#gid=376564831"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "UID": "={{ $json.UID }}",
+            "Identitification Date": "={{ $json['Identitification Date'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Identitification Date",
+              "displayName": "Identitification Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "UID",
+              "displayName": "UID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2608,
+        160
+      ],
+      "id": "aa59db0b-2e2c-48eb-b20a-ed79608d6b08",
+      "name": "Add to Processed",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "REPLACE_ME",
+          "name": "Your googleSheetsOAuth2Api credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "Run actor and get dataset",
+        "actorId": {
+          "__rl": true,
+          "value": "MdJIadsWKRaguareT",
+          "mode": "id"
+        },
+        "customBody": "{\n    \"contractType\": [\n        \"full_time\"\n    ],\n    \"countryCode\": \"GB\",\n    \"includeDetails\": true,\n    \"language\": \"en\",\n    \"maxItems\": 0,\n    \"query\": \"\\\"Program Manager\\\"\",\n    \"searchOnlyInJobTitle\": false\n}",
+        "timeout": "={{ 0 }}",
+        "memory": 256
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        336
+      ],
+      "id": "12d9fe84-5c13-4afd-8c2b-aa453a727273",
+      "name": "Program Manager",
+      "notesInFlow": false,
+      "credentials": {
+        "apifyApi": {
+          "id": "REPLACE_ME",
+          "name": "Your apifyApi credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "Run actor and get dataset",
+        "actorId": {
+          "__rl": true,
+          "value": "MdJIadsWKRaguareT",
+          "mode": "id"
+        },
+        "customBody": "{\n    \"contractType\": [\n        \"full_time\"\n    ],\n    \"countryCode\": \"GB\",\n    \"includeDetails\": true,\n    \"language\": \"en\",\n    \"maxItems\": 0,\n    \"query\": \"\\\"PMO\\\"\",\n    \"searchOnlyInJobTitle\": false\n}",
+        "timeout": "={{ 0 }}",
+        "memory": 256
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        -288
+      ],
+      "id": "723d8d01-e78c-442c-a576-35fa87c1c568",
+      "name": "PMO",
+      "notesInFlow": false,
+      "credentials": {
+        "apifyApi": {
+          "id": "REPLACE_ME",
+          "name": "Your apifyApi credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "Run actor and get dataset",
+        "actorId": {
+          "__rl": true,
+          "value": "MdJIadsWKRaguareT",
+          "mode": "id"
+        },
+        "customBody": "{\n    \"contractType\": [\n        \"full_time\"\n    ],\n    \"countryCode\": \"GB\",\n    \"includeDetails\": true,\n    \"language\": \"en\",\n    \"maxItems\": 0,\n    \"query\": \"\\\"Director\\\"\",\n    \"searchOnlyInJobTitle\": false\n}",
+        "timeout": "={{ 0 }}",
+        "memory": 256
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        496
+      ],
+      "id": "b5d48f20-5971-4869-9be2-c264f0ad3e16",
+      "name": "Director",
+      "notesInFlow": false,
+      "credentials": {
+        "apifyApi": {
+          "id": "REPLACE_ME",
+          "name": "Your apifyApi credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "Run actor and get dataset",
+        "actorId": {
+          "__rl": true,
+          "value": "MdJIadsWKRaguareT",
+          "mode": "id"
+        },
+        "customBody": "{\n    \"contractType\": [\n        \"full_time\"\n    ],\n    \"countryCode\": \"GB\",\n    \"includeDetails\": true,\n    \"language\": \"en\",\n    \"maxItems\": 0,\n    \"query\": \"\\\"Delivery\\\"\",\n    \"searchOnlyInJobTitle\": false\n}",
+        "timeout": "={{ 0 }}",
+        "memory": 256
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        -448
+      ],
+      "id": "7d4a8ccb-433d-40b5-b40f-552e468d90a3",
+      "name": "Delivery",
+      "notesInFlow": false,
+      "credentials": {
+        "apifyApi": {
+          "id": "REPLACE_ME",
+          "name": "Your apifyApi credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "Run actor and get dataset",
+        "actorId": {
+          "__rl": true,
+          "value": "MdJIadsWKRaguareT",
+          "mode": "id"
+        },
+        "customBody": "{\n    \"contractType\": [\n        \"full_time\"\n    ],\n    \"countryCode\": \"GB\",\n    \"includeDetails\": true,\n    \"language\": \"en\",\n    \"maxItems\": 0,\n    \"query\": \"\\\"Operations Generalist\\\"\",\n    \"searchOnlyInJobTitle\": false\n}",
+        "timeout": "={{ 0 }}",
+        "memory": 256
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        672
+      ],
+      "id": "ff750aae-8d5f-4c65-a6ef-1191fd7f5495",
+      "name": "Operations Generalist",
+      "notesInFlow": false,
+      "credentials": {
+        "apifyApi": {
+          "id": "REPLACE_ME",
+          "name": "Your apifyApi credential"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Project Manager",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Operations Manager",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chief Of Staff",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Program Manager",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "PMO",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Director",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Delivery",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Operations Generalist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Remove Duplicates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "60% Threshold ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Claude Assesment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Claude Cover Letter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Duplicates": {
+      "main": [
+        [
+          {
+            "node": "Claude Scoring",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chief Of Staff": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Project Manager": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Operations Manager": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "Claude Scoring": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude CV Reccomendation": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "60% Threshold ": {
+      "main": [
+        [
+          {
+            "node": "Claude CV Reccomendation",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Add to Rejections",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Assesment": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Cover Letter": {
+      "main": [
+        [
+          {
+            "node": "Creates Cover Letter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Populates Cover Letter": {
+      "main": [
+        [
+          {
+            "node": "Add to Application Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Creates Cover Letter": {
+      "main": [
+        [
+          {
+            "node": "Populates Cover Letter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add to Application Sheet": {
+      "main": [
+        [
+          {
+            "node": "Add to Processed Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add to Rejections": {
+      "main": [
+        [
+          {
+            "node": "Add to Processed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add to Processed Sheet": {
+      "main": [
+        []
+      ]
+    },
+    "Program Manager": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 5
+          }
+        ]
+      ]
+    },
+    "PMO": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Director": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 6
+          }
+        ]
+      ]
+    },
+    "Operations Generalist": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 7
+          }
+        ]
+      ]
+    },
+    "Delivery": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "timezone": "Europe/London",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "ebf72d49-2789-4a94-96a2-2f4d5d3f1cb3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "REDACTED_INSTANCE_ID"
+  },
+  "id": "1Syqs8QqXz4Bdu0q",
+  "tags": []
+}
